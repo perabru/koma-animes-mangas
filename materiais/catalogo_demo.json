@@ -1,0 +1,31 @@
+[
+  {
+    "id": "obra-demo-1",
+    "titulo": "Padrão de teste",
+    "tipo": "anime",
+    "estudio": "Estúdio didático",
+    "autorizado": true,
+    "origem": "synthetic",
+    "episodios": [
+      {
+        "numero": 1,
+        "titulo": "Teste de reprodução",
+        "duracao_seg": 6
+      }
+    ]
+  },
+  {
+    "id": "obra-demo-2",
+    "titulo": "Caderno de formas",
+    "tipo": "manga",
+    "estudio": "Estúdio didático",
+    "autorizado": true,
+    "origem": "synthetic",
+    "capitulos": [
+      {
+        "numero": 1,
+        "paginas": 3
+      }
+    ]
+  }
+]

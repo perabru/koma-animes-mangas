@@ -1,0 +1,22 @@
+id,titulo,autor_instituicao,ano,url,acesso_em,afirmacao_sustentada,limite,licenca
+git,Pro Git em português,Git / autores do Pro Git,,https://git-scm.com/book/pt-br/v2,2026-10-31,,,Leitura gratuita
+cc,Creative Commons: tipos de licença,Creative Commons,,https://creativecommons.org/cc-licenses/,2026-10-31,,,Leitura gratuita
+mdn,Aprendendo desenvolvimento web,MDN Web Docs,,https://developer.mozilla.org/pt-BR/docs/Learn_web_development,2026-10-31,,,Leitura gratuita
+ts,TypeScript Handbook,TypeScript / Microsoft,,https://www.typescriptlang.org/docs/handbook/intro.html,2026-10-31,,,Leitura gratuita
+react,React: primeiros componentes,React,,https://react.dev/learn,2026-10-31,,,Leitura gratuita
+next,Next.js: App Router,Next.js / Vercel,,https://nextjs.org/docs/app,2026-10-31,,,Leitura gratuita
+node,Node.js: introdução,Node.js,,https://nodejs.org/learn/getting-started/introduction-to-nodejs,2026-10-31,,,Leitura gratuita
+nest,NestJS: fundamentos,NestJS,,https://docs.nestjs.com/,2026-10-31,,,Leitura gratuita
+postgres,PostgreSQL: tutorial,PostgreSQL Global Development Group,,https://www.postgresql.org/docs/current/tutorial.html,2026-10-31,,,Leitura gratuita
+prisma,Prisma: dados relacionais,Prisma,,https://www.prisma.io/docs,2026-10-31,,,Leitura gratuita
+oidc,Autenticação com OpenID Connect,Keycloak,,https://www.keycloak.org/securing-apps/oidc-layers,2026-10-31,,,Leitura gratuita
+ffmpeg,FFmpeg: formatos e muxer HLS,FFmpeg,,https://www.ffmpeg.org/ffmpeg-formats.html,2026-10-31,,,Leitura gratuita
+bull,BullMQ: filas e workers,BullMQ,,https://docs.bullmq.io/,2026-10-31,,,Leitura gratuita
+hls,hls.js: player e exemplos,video-dev / hls.js,,https://github.com/video-dev/hls.js,2026-10-31,,,Leitura gratuita
+vtt,WebVTT: legendas e faixas,W3C,,https://www.w3.org/TR/webvtt1/,2026-10-31,,,Leitura gratuita
+sharp,Sharp: processamento de imagens,Sharp,,https://sharp.pixelplumbing.com/,2026-10-31,,,Leitura gratuita
+docker,Docker Compose: primeiro projeto,Docker,,https://docs.docker.com/compose/gettingstarted/,2026-10-31,,,Leitura gratuita
+tests,Playwright: primeiros testes,Playwright / Microsoft,,https://playwright.dev/docs/intro,2026-10-31,,,Leitura gratuita
+zotero,Zotero: guia inicial,Zotero,,https://www.zotero.org/support/quick_start_guide,2026-10-31,,,Leitura gratuita
+abnt,Normas e guias de normalização,Sistema Integrado de Bibliotecas / UFES,,https://biblioteca.ufes.br/normalizacao,2026-10-31,,,Leitura gratuita
+inic,INIC: modelo e submissão,UNIVAP / INIC,,https://www.univap.br/inic/submissao_trabalhos.php,2026-10-31,,,Leitura gratuita

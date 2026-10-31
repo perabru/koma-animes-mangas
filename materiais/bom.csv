@@ -1,0 +1,7 @@
+item,quantidade_planejada,papel,etapa,compatibilidade,modelo_confirmado,preco_cotado_brl,origem_cotacao,data_cotacao
+Computador de desenvolvimento,1,"Node.js, interface, banco e testes",Essencial,8 a 16 GB de RAM como ponto de partida didático; transcodificação deve ser medida.,,,,
+Navegadores atuais,2 ou mais,Teste de reprodução e acessibilidade,Essencial,,,,,
+Smartphone,1,Teste de leitura e player móvel,Teste,,,,,
+Fones ou caixas de som,1,Conferir áudio e sincronização,Teste,,,,,
+Disco para cópias de trabalho e backup,1,Guardar originais autorizados e derivados,Proposto,"Dimensionar pela duração, bitrate e número de versões.",,,,
+Servidor ou máquina local para worker,1,Aprender fila e transcodificação,Proposto,O exercício inicial pode rodar no computador local; a operação pública exige orçamento próprio.,,,,
