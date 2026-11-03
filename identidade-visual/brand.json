@@ -1,0 +1,188 @@
+{
+  "slug": "koma-animes-mangas",
+  "name": "KOMA",
+  "short": "KOMA",
+  "domain": "Animes e mangás de autores independentes",
+  "tagline": "Histórias de quem cria.",
+  "concept": [
+    "KOMA transforma a divisão de uma página em símbolo: um painel estreito de leitura encontra o triângulo de reprodução. O enquadramento une mangá e animação em uma mesma linguagem.",
+    "A identidade tem ritmo editorial: preto de tinta, papel quente, laranja de energia e vermelho de pontuação. Cortes diagonais, faixas e enquadramentos valorizam a obra e mantêm a autoria visível."
+  ],
+  "personality": [
+    "Expressivo",
+    "Autoral",
+    "Ágil"
+  ],
+  "colors": {
+    "bg": "#17151C",
+    "panel": "#26222D",
+    "ink": "#FFF6E8",
+    "muted": "#CABFD1",
+    "line": "#514456",
+    "accent": "#FF873C",
+    "second": "#FF5A64",
+    "paper": "#FFF6E8",
+    "dark": "#17151C"
+  },
+  "palette": [
+    {
+      "name": "Preto tinta",
+      "hex": "#17151C",
+      "role": "Marca, fundos editoriais e contraste principal."
+    },
+    {
+      "name": "Laranja quadro",
+      "hex": "#FF873C",
+      "role": "Reprodução, descoberta e chamadas; texto preto sobre a cor."
+    },
+    {
+      "name": "Vermelho impacto",
+      "hex": "#FF5A64",
+      "role": "Acentos curtos e destaques de publicação."
+    },
+    {
+      "name": "Papel mangá",
+      "hex": "#FFF6E8",
+      "role": "Fundos de leitura e aplicações impressas."
+    },
+    {
+      "name": "Grafite editorial",
+      "hex": "#26222D",
+      "role": "Painéis de catálogo e navegação."
+    }
+  ],
+  "fonts": {
+    "display": "Sora",
+    "body": "Nunito Sans",
+    "mono": "JetBrains Mono"
+  },
+  "motif": "Quadros de mangá, recortes diagonais e ritmo de leitura.",
+  "graphic_rules": [
+    "Separar quadros por respiros regulares, como margens de uma página de mangá.",
+    "Usar diagonais de 12° em faixas e recortes; manter texto horizontal para leitura.",
+    "Usar vermelho apenas como pontuação; laranja conduz a ação principal.",
+    "Preservar crédito, título e proporção das imagens dos autores."
+  ],
+  "voice": {
+    "do": [
+      "Dar destaque ao autor e à obra.",
+      "Escrever convites curtos, diretos e acolhedores.",
+      "Diferenciar assistir, ler e publicar."
+    ],
+    "dont": [
+      "Prometer fama, renda ou alcance garantido.",
+      "Apagar créditos da arte.",
+      "Imitar personagens, logos ou campanhas de outras plataformas."
+    ],
+    "example": "Leia o primeiro capítulo. Conheça quem criou a história."
+  },
+  "applications": [
+    "Card de obra com quadro, título, autor e ação de leitura ou reprodução.",
+    "Capa de apresentação com faixa diagonal e grande tipografia.",
+    "Post de lançamento com crédito sempre próximo da imagem."
+  ],
+  "cautions": [
+    "Usar apenas obras próprias ou autorizadas e preservar seus créditos.",
+    "Recursos de catálogo, login e publicação devem ser descritos conforme o estágio real do protótipo."
+  ],
+  "version": "1.0",
+  "year": 2027,
+  "created": "2026-11-03",
+  "logo": {
+    "concept": "Uma moldura de quadrinho combina um painel vertical com o triângulo de reprodução.",
+    "grid": "Módulo de 100 × 100 unidades. Moldura de x=12 a 88, com raio de 7 e traço de 7 unidades. Divisão vertical em x=38; triângulo de reprodução no quadro direito.",
+    "clear_space": "1x em todos os lados; x = 10 unidades do símbolo de 100 × 100. A área externa de proteção não está incluída no arquivo.",
+    "min_width_print_mm": 40,
+    "min_width_digital_px": 180,
+    "symbol_min_px": 32,
+    "symbol_min_print_mm": 10,
+    "unit": 10,
+    "symbol_viewbox": [
+      0,
+      0,
+      100,
+      100
+    ],
+    "positive_colors": [
+      "#17151C",
+      "#FF873C"
+    ],
+    "negative_colors": [
+      "#FFF6E8",
+      "#FF873C"
+    ],
+    "horizontal_viewbox": [
+      0,
+      0,
+      282.97,
+      100
+    ],
+    "files": [
+      "assets/marca-horizontal.svg",
+      "assets/marca-negativa.svg",
+      "assets/marca-monocromatica.svg",
+      "assets/marca-vertical.svg",
+      "assets/simbolo.svg",
+      "assets/simbolo-negativo.svg",
+      "assets/simbolo-monocromatico.svg",
+      "assets/padrao.svg"
+    ],
+    "color_rules": "A versão positiva usa #17151C e #FF873C sobre #FFF6E8. A versão negativa usa #FFF6E8 e #FF873C sobre #17151C. Essas variantes são específicas da marca; não substituir as cores por aproximação. A versão monocromática usa uma única tinta, #17151C."
+  },
+  "font_files": {
+    "display_regular": "fontes/sora-regular.ttf",
+    "display_bold": "fontes/sora-bold.ttf",
+    "body_regular": "fontes/nunito-sans-regular.ttf",
+    "body_bold": "fontes/nunito-sans-bold.ttf",
+    "mono_regular": "fontes/jetbrains-mono-regular.ttf"
+  },
+  "font_web_files": {
+    "display": "fontes/sora.woff",
+    "body": "fontes/nunito-sans.woff",
+    "mono": "fontes/jetbrains-mono.woff"
+  },
+  "contrast_pairs": [
+    {
+      "label": "Texto principal",
+      "foreground": "#FFF6E8",
+      "background": "#17151C",
+      "ratio": 16.89,
+      "minimum": 4.5
+    },
+    {
+      "label": "Texto em painel",
+      "foreground": "#FFF6E8",
+      "background": "#26222D",
+      "ratio": 14.53,
+      "minimum": 4.5
+    },
+    {
+      "label": "Texto secundário",
+      "foreground": "#CABFD1",
+      "background": "#17151C",
+      "ratio": 10.24,
+      "minimum": 4.5
+    },
+    {
+      "label": "Chamada principal",
+      "foreground": "#17151C",
+      "background": "#FF873C",
+      "ratio": 7.57,
+      "minimum": 4.5
+    },
+    {
+      "label": "Link de destaque",
+      "foreground": "#FF873C",
+      "background": "#17151C",
+      "ratio": 7.57,
+      "minimum": 4.5
+    }
+  ],
+  "font_weights": {
+    "display_regular": 400,
+    "display_bold": 700,
+    "body_regular": 400,
+    "body_bold": 700,
+    "mono_regular": 400
+  }
+}
