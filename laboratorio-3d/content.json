@@ -1,0 +1,393 @@
+{
+  "eyebrow": "KOMA · laboratório da plataforma",
+  "headline": "Da criação ao primeiro play.",
+  "intro": "Desenvolva o caminho completo entre o envio de uma obra independente e a experiência do leitor. A cena 3D conecta o dispositivo do público, a estação de trabalho, o processamento e o armazenamento.",
+  "scope": "As conexões mostram fluxos lógicos de arquivos e dados. O celular usa proporções externas de um iPhone 15; suas camadas internas são ilustrações didáticas. A abertura 3D explica a composição do dispositivo e não é uma instrução de reparo. O produto de streaming ainda exige o desenvolvimento descrito abaixo.",
+  "stats": [
+    {
+      "value": "8",
+      "label": "etapas de desenvolvimento"
+    },
+    {
+      "value": "HLS",
+      "label": "vídeo segmentado"
+    },
+    {
+      "value": "2 formatos",
+      "label": "anime e mangá"
+    }
+  ],
+  "steps": [
+    {
+      "id": "etapa-1",
+      "title": "Recorte uma primeira publicação",
+      "kicker": "Definir o MVP",
+      "body": "Faça uma obra atravessar todo o sistema antes de ampliar o catálogo. Use material próprio ou autorizado e um conjunto de teste pequeno.",
+      "actions": [
+        "Defina um estúdio, uma obra de anime com um episódio e uma obra de mangá com um capítulo. Identifique autores, créditos, idioma e autorização.",
+        "Desenhe quatro percursos: visitante consulta; leitor reproduz; autor envia; moderador revisa. Liste as ações que cada papel pode executar.",
+        "Crie a máquina de estados rascunho → enviado → processando → em revisão → publicado, incluindo falha e retirada.",
+        "Use o catálogo sintético do repositório para verificar os campos iniciais. Ele é uma base didática, não uma licença para publicar obras de terceiros."
+      ],
+      "check": "As duas obras de teste têm dados completos, autorização e um percurso de publicação definido.",
+      "parts": [
+        "workstation",
+        "phone_display"
+      ],
+      "code": {
+        "language": "bash",
+        "text": "cd materiais\nnode validar_catalogo.js"
+      }
+    },
+    {
+      "id": "etapa-2",
+      "title": "Modele contas, obras e versões",
+      "kicker": "Dados e permissões",
+      "body": "O catálogo, os arquivos e as decisões de publicação precisam ser entidades separadas. Uma substituição de vídeo não pode apagar a história da revisão anterior.",
+      "actions": [
+        "Modele User, Studio, StudioMember, Work, Episode/Chapter, MediaAsset, Release, ModerationReview, Favorite e Progress.",
+        "Use chaves únicas para numeração de episódios/capítulos e para progresso por usuário e item. Mantenha vínculos explícitos entre uma versão da obra e seus arquivos.",
+        "Integre autenticação pelo provedor definido no briefing. A API deve conferir papel e vínculo com o estúdio em toda alteração.",
+        "Teste uma conta de outro estúdio tentando editar um título ou baixar um original privado. A rejeição deve vir do servidor, mesmo que a interface esconda o botão."
+      ],
+      "check": "Duas contas de estúdios diferentes não conseguem alterar nem revisar arquivos uma da outra.",
+      "parts": [
+        "workstation",
+        "worker",
+        "storage"
+      ]
+    },
+    {
+      "id": "etapa-3",
+      "title": "Construa o envio e a fila de mídia",
+      "kicker": "Entrada de arquivos",
+      "body": "Receba primeiro o original, registre sua identidade e só depois processe. A requisição de envio deve devolver estado e acompanhamento sem esperar a conversão terminar.",
+      "actions": [
+        "Valide extensão, conteúdo, tamanho permitido e duração quando aplicável. Gere no servidor a chave de armazenamento associada ao estúdio e à obra.",
+        "Use URL de envio temporária ou endpoint autenticado. Após o upload, confirme tamanho, checksum e formato real do arquivo.",
+        "Enfileire uma tarefa identificada por asset e versão. Repetir o mesmo evento não deve gerar derivados ou publicações duplicadas.",
+        "Exiba estados aguardando, processando, concluído e falha com motivo. Ofereça repetição controlada; mantenha o original privado enquanto não houver liberação."
+      ],
+      "check": "Um upload interrompido não aparece como publicado, e repetir a confirmação não duplica a tarefa.",
+      "parts": [
+        "workstation",
+        "worker",
+        "storage"
+      ]
+    },
+    {
+      "id": "etapa-4",
+      "title": "Prepare vídeo, páginas e legendas",
+      "kicker": "Processamento",
+      "body": "Implemente processamento em worker separado. Comece por arquivos pequenos para medir custo e comportamento de falhas.",
+      "actions": [
+        "No anime, use FFmpeg para gerar HLS com playlist e segmentos. Registre codecs, resolução, bitrate e duração resultante.",
+        "No mangá, preserve as páginas originais, a ordem e a orientação. Gere derivados de leitura com dimensões adequadas sem cortar balões ou margens úteis.",
+        "Associe legendas WebVTT ao episódio e permita conferir sincronização. Registre qualquer normalização aplicada ao áudio ou à imagem.",
+        "Execute o gerador de barras sintéticas do kit. Ele cria seis segundos de vídeo para estudar o fluxo; não mede o desempenho de uma plataforma em produção."
+      ],
+      "check": "A playlist possui segmentos acessíveis; o capítulo mantém todas as páginas na ordem correta.",
+      "parts": [
+        "worker",
+        "storage"
+      ],
+      "code": {
+        "language": "bash",
+        "text": "cd materiais\npython gerar_hls_demo.py\n# Requer FFmpeg instalado; saída em hls_demo/."
+      }
+    },
+    {
+      "id": "etapa-5",
+      "title": "Implemente a revisão antes de publicar",
+      "kicker": "Operação editorial",
+      "body": "A liberação deve apontar para uma versão específica, com decisão registrada. Um novo arquivo enviado exige nova revisão conforme a política do projeto.",
+      "actions": [
+        "Mostre ao moderador os metadados, créditos, declaração de direitos e derivados que o público verá.",
+        "Registre aprovação ou pedido de ajuste com responsável e motivo. A conta autora não assume automaticamente o papel de revisora.",
+        "Publique somente arquivos da versão aprovada e defina o comportamento de retirada. Evite que uma URL pública antiga continue servindo um arquivo que deveria ficar indisponível.",
+        "Crie denúncia e auditoria de mudanças, com acesso limitado à equipe responsável. Use casos de teste para validar a revisão e a retirada."
+      ],
+      "check": "Uma obra ainda em revisão não é consumida por uma conta pública; uma retirada altera a disponibilidade.",
+      "parts": [
+        "workstation",
+        "storage"
+      ]
+    },
+    {
+      "id": "etapa-6",
+      "title": "Construa o player e o leitor",
+      "kicker": "Experiência do público",
+      "body": "O conteúdo precisa continuar compreensível em telas pequenas e em redes variáveis. Reproduzir, retomar e navegar devem ser ações previsíveis.",
+      "actions": [
+        "Use vídeo HTML5 com HLS nativo quando disponível ou hls.js nos navegadores compatíveis. Trate ausência de suporte e erro de reprodução.",
+        "Sirva playlist e segmentos com cabeçalhos e CORS coerentes. Teste seek, fim do episódio, troca de rede e retomada sem recarregar o catálogo inteiro.",
+        "No leitor, permita modo adequado à obra, zoom e navegação por teclado. Mostre posição no capítulo sem cobrir o conteúdo.",
+        "Salve progresso com item e versão. Trate atualização concorrente e conclusão; não sobrescreva um avanço recente com uma resposta antiga."
+      ],
+      "check": "O usuário começa no computador, retoma no celular e consegue navegar com teclado e legendas.",
+      "parts": [
+        "phone_frame",
+        "phone_display",
+        "phone_board",
+        "workstation"
+      ]
+    },
+    {
+      "id": "etapa-7",
+      "title": "Teste o percurso e o custo do piloto",
+      "kicker": "Homologar",
+      "body": "A infraestrutura deve ser dimensionada a partir de medição. O mini computador da cena é uma opção didática para serviços leves, não uma promessa de transcodificação em grande escala.",
+      "actions": [
+        "Teste upload válido, arquivo inválido, falha no worker, revisão negada, publicação, retirada e restauração de backup.",
+        "Meça tempo de processamento, armazenamento de original/derivados e tráfego por reprodução com arquivos representativos.",
+        "Monte uma matriz de navegadores, telas e redes. Verifique contraste, foco, teclado, legendas e mensagens de falha.",
+        "Mantenha segredos no ambiente do servidor. Uma página estática no GitHub Pages apresenta o projeto; APIs privadas, fila e banco exigem ambiente próprio."
+      ],
+      "check": "O relatório liga cada resultado a uma versão, arquivo de teste e condição de execução.",
+      "parts": [
+        "worker",
+        "storage",
+        "phone_display"
+      ]
+    },
+    {
+      "id": "etapa-8",
+      "title": "Entregue uma publicação demonstrável",
+      "kicker": "Concluir",
+      "body": "A banca deve ver uma obra percorrer o fluxo real. Reúna arquitetura, modelo de dados, evidências de testes e instruções para repetir a demonstração.",
+      "actions": [
+        "Versione migrações, configuração do ambiente e contratos da API. Documente como criar as contas de teste sem publicar credenciais.",
+        "Entregue uma obra autorizada ou sintética com todos os créditos. Mostre envio, processamento, revisão e consumo.",
+        "Apresente custos medidos do piloto e decisões de produto: acesso, catálogo, autoria, moderação e continuidade.",
+        "Use os resultados próprios na monografia e no artigo. Diferencie interface demonstrativa, serviço implementado e funcionalidade planejada."
+      ],
+      "check": "Outra equipe consegue iniciar o piloto e publicar a obra de teste seguindo o roteiro.",
+      "parts": [
+        "workstation",
+        "worker",
+        "storage",
+        "phone_display"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "name": "Dispositivo móvel",
+      "model": "iPhone 15 como referência externa do modelo 3D",
+      "quantity": "1 para teste",
+      "role": "Leitura, player, navegação e retomada.",
+      "selection": "Pode ser substituído pelo aparelho disponível; registre modelo e sistema.",
+      "sourceUrl": "https://support.apple.com/pt-br/111831",
+      "sourceLabel": "Especificações Apple"
+    },
+    {
+      "name": "Estação de desenvolvimento",
+      "model": "Computador com Node.js, Python e navegador",
+      "quantity": "1",
+      "role": "Interface, API, testes e processamento inicial.",
+      "selection": "Use arquivos pequenos; meça memória e tempo de conversão.",
+      "sourceUrl": "https://nodejs.org/",
+      "sourceLabel": "Node.js"
+    },
+    {
+      "name": "Servidor didático",
+      "model": "Raspberry Pi 5 como opção representada",
+      "quantity": "Opcional",
+      "role": "Hospedagem local de serviços leves e estudo de rede.",
+      "selection": "Não é requisito nem referência de capacidade para transcodificação pesada.",
+      "sourceUrl": "https://www.raspberrypi.com/products/raspberry-pi-5/",
+      "sourceLabel": "Raspberry Pi"
+    },
+    {
+      "name": "Armazenamento",
+      "model": "Disco de trabalho e destino de backup",
+      "quantity": "1 conjunto",
+      "role": "Originais, derivados e cópia de recuperação.",
+      "selection": "Dimensionar pelo volume medido e testar restauração.",
+      "sourceUrl": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html",
+      "sourceLabel": "Armazenamento e URLs temporárias"
+    },
+    {
+      "name": "Teste audiovisual",
+      "model": "Fones ou caixas de som e navegador compatível",
+      "quantity": "1 conjunto",
+      "role": "Conferir áudio, legendas e reprodução.",
+      "selection": "Inclua pelo menos dispositivos diferentes no teste.",
+      "sourceUrl": "https://github.com/video-dev/hls.js/",
+      "sourceLabel": "Compatibilidade hls.js"
+    },
+    {
+      "name": "Arquivos de ensaio",
+      "model": "Catálogo sintético, WebVTT e barras de vídeo",
+      "quantity": "1 conjunto",
+      "role": "Validar o percurso sem depender de obra externa.",
+      "selection": "Disponíveis em materiais; identificar sempre a origem demonstrativa.",
+      "sourceUrl": "../materiais/LEIA-ME.md",
+      "sourceLabel": "Kit do projeto"
+    }
+  ],
+  "connections": [
+    {
+      "to": "API de catálogo",
+      "protocol": "HTTPS · sessão",
+      "detail": "Metadados e permissão de criar/alterar uma obra.",
+      "type": "network",
+      "from": "Estúdio / navegador"
+    },
+    {
+      "to": "Armazenamento privado",
+      "protocol": "HTTPS · upload",
+      "detail": "Envio vinculado ao asset, com tamanho e checksum confirmados.",
+      "type": "network",
+      "from": "Navegador autorizado"
+    },
+    {
+      "to": "Fila / worker",
+      "protocol": "Tarefa assíncrona",
+      "detail": "Identificador de arquivo e versão; repetição idempotente.",
+      "type": "data",
+      "from": "API"
+    },
+    {
+      "to": "Armazenamento",
+      "protocol": "HLS / imagens / WebVTT",
+      "detail": "Derivados referenciam o original e os parâmetros de processamento.",
+      "type": "data",
+      "from": "Worker"
+    },
+    {
+      "to": "Publicação",
+      "protocol": "Decisão versionada",
+      "detail": "Apenas a versão aprovada é disponibilizada.",
+      "type": "data",
+      "from": "Revisão editorial"
+    },
+    {
+      "to": "Celular / computador",
+      "protocol": "HTTPS · playlist e mídia",
+      "detail": "CORS e permissões coerentes; conexões da cena são lógicas.",
+      "type": "network",
+      "from": "Armazenamento / CDN"
+    },
+    {
+      "to": "API de progresso",
+      "protocol": "HTTPS · estado",
+      "detail": "Usuário, item, posição, versão e data da atualização.",
+      "type": "network",
+      "from": "Player / leitor"
+    }
+  ],
+  "stack": [
+    {
+      "name": "Next.js + React",
+      "role": "Catálogo, área do estúdio, player e leitor.",
+      "href": "https://nextjs.org/docs"
+    },
+    {
+      "name": "NestJS + PostgreSQL / Prisma",
+      "role": "API, permissões, obras e publicação.",
+      "href": "https://docs.nestjs.com/"
+    },
+    {
+      "name": "Redis + BullMQ",
+      "role": "Fila rastreável para processamento de mídia.",
+      "href": "https://docs.nestjs.com/techniques/queues"
+    },
+    {
+      "name": "FFmpeg + hls.js",
+      "role": "Preparação e reprodução de vídeo HLS.",
+      "href": "https://ffmpeg.org/ffmpeg-formats.html"
+    },
+    {
+      "name": "S3 compatível + CDN",
+      "role": "Originais privados e derivados autorizados.",
+      "href": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html"
+    }
+  ],
+  "deliverables": [
+    "Modelo de dados e estados de publicação.",
+    "API com autorização por estúdio e testes de acesso.",
+    "Worker com estado, repetição e derivados rastreáveis.",
+    "Player, leitor, legendas e progresso demonstrados.",
+    "Obras de teste autorizadas, medição de custo e roteiro de recuperação."
+  ],
+  "checks": [
+    "Nenhuma obra é publicada sem autorização e decisão registradas.",
+    "Um estúdio não modifica os arquivos de outro.",
+    "Tarefa repetida não duplica a publicação.",
+    "Player e leitor funcionam na matriz de dispositivos escolhida.",
+    "Backup foi restaurado, além de simplesmente criado."
+  ],
+  "references": [
+    {
+      "title": "FFmpeg · formatos e HLS",
+      "url": "https://ffmpeg.org/ffmpeg-formats.html",
+      "why": "Playlist, segmentos e parâmetros de saída."
+    },
+    {
+      "title": "hls.js · projeto oficial",
+      "url": "https://github.com/video-dev/hls.js/",
+      "why": "Reprodução HLS e suporte dos navegadores."
+    },
+    {
+      "title": "NestJS · filas",
+      "url": "https://docs.nestjs.com/techniques/queues",
+      "why": "Separação entre requisição e processamento."
+    },
+    {
+      "title": "Amazon S3 · URLs pré-assinadas",
+      "url": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html",
+      "why": "Envio e acesso temporário a arquivos."
+    },
+    {
+      "title": "iPhone 15 · Apple",
+      "url": "https://support.apple.com/pt-br/111831",
+      "why": "Referência externa do aparelho modelado."
+    },
+    {
+      "title": "Raspberry Pi 5",
+      "url": "https://www.raspberrypi.com/products/raspberry-pi-5/",
+      "why": "Referência do dispositivo opcional de serviços locais."
+    }
+  ],
+  "faq": [
+    {
+      "q": "Preciso comprar um servidor para começar?",
+      "a": "Não. O primeiro fluxo pode rodar no computador de desenvolvimento com arquivos pequenos. Meça o piloto antes de escolher uma infraestrutura pública."
+    },
+    {
+      "q": "É preciso desmontar um celular real?",
+      "a": "Não. As camadas 3D são uma explicação visual. O projeto utiliza o navegador do aparelho e não exige abrir nem modificar seu hardware."
+    },
+    {
+      "q": "O GitHub Pages já hospeda streaming, banco e login?",
+      "a": "Ele publica estas páginas estáticas de apresentação e estudo. O produto completo precisa de API, armazenamento, identidade e processamento em serviços adequados."
+    },
+    {
+      "q": "O gerador HLS usa vídeos de terceiros?",
+      "a": "Não. O script do kit gera barras sintéticas por seis segundos com FFmpeg, para estudar playlist e segmentos."
+    }
+  ],
+  "downloads": [
+    {
+      "label": "Kit de estudos",
+      "href": "../materiais/kit-estudos-koma.zip",
+      "detail": "Catálogo, legendas, exercícios e formulários."
+    },
+    {
+      "label": "Validador de catálogo",
+      "href": "../materiais/validar_catalogo.js",
+      "detail": "Verifica o catálogo sintético de estudo."
+    },
+    {
+      "label": "Gerador HLS",
+      "href": "../materiais/gerar_hls_demo.py",
+      "detail": "Produz vídeo sintético com FFmpeg."
+    },
+    {
+      "label": "BOM editável",
+      "href": "../materiais/bom.csv",
+      "detail": "Equipamentos e seleção do piloto."
+    }
+  ]
+}
